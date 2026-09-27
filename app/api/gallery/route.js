@@ -9,9 +9,13 @@ function isAdmin(request) {
 }
 
 export async function GET() {
-  const { blobs } = await list({ prefix: "gallery/" });
+  try {
+    const { blobs } = await list({ prefix: "gallery/" });
   const photos = blobs.filter(b => /\.(jpg|jpeg|png|webp|gif)$/i.test(b.pathname)).sort((a,b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
-  return NextResponse.json({ blobs: photos });
+    return NextResponse.json({ blobs: photos });
+  } catch (error) {
+    return NextResponse.json({ error: "Blob nie jest jeszcze podłączony.", details: error?.message || "Unknown error" }, { status: 503 });
+  }
 }
 
 export async function POST(request) {
