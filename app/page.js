@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { list } from "@vercel/blob";
 
+export const dynamic = "force-dynamic";
+
 async function getGallery() {
   try {
     const { blobs } = await list({ prefix: "gallery/" });
@@ -21,7 +23,7 @@ export default async function Home() {
       <header>
         <a className="brand" href="#top"><b>A<span>&</span>W</b><strong>Ania&Władzia<small>PRACOWNIA FRYZJERSKA</small></strong></a>
         <nav><a href="#o-nas">O pracowni</a><a href="#oferta">Oferta</a><a href="#galeria">Galeria</a><a href="#opinie">Opinie</a><a href="#kontakt">Kontakt</a></nav>
-        <a className="call" href="tel:+48713489455">Zadzwoń</a>
+        <div className="header-actions"><Link className="admin-nav" href="/admin">Panel właściciela</Link><a className="call" href="tel:+48713489455">Zadzwoń</a></div>
       </header>
 
       <main id="top">
@@ -43,7 +45,7 @@ export default async function Home() {
         <section id="oferta" className="section services"><div className="heading"><div><label>02 / CO ROBIMY</label><h2>Usługi bez<br/><em>kombinowania.</em></h2></div><p>Zakres i cena usługi są ustalane indywidualnie. Zadzwoń, aby potwierdzić aktualną ofertę.</p></div><div className="cards"><article><small>01</small><h3>Strzyżenie</h3><p>Dobre cięcie dopasowane do włosów, kształtu fryzury i Twojego stylu.</p><b>Zapytaj o cenę ↗</b></article><article className="accent"><small>02</small><h3>Koloryzacja</h3><p>Odświeżenie koloru i zmiana, która ma wyglądać dobrze także po wyjściu z salonu.</p><b>Zapytaj o cenę ↗</b></article><article><small>03</small><h3>Stylizacja</h3><p>Fryzura na co dzień, ważne wyjście albo po prostu dzień, w którym chcesz wyglądać świetnie.</p><b>Zapytaj o cenę ↗</b></article></div><p className="fine">* Informacja o cenie około 60 zł pochodzi z opinii klienta z sierpnia 2025. Aktualną cenę najlepiej potwierdzić telefonicznie.</p></section>
 
         <section id="galeria" className="section gallery-section">
-          <div className="heading"><div><label>03 / GALERIA</label><h2>Nasza pracownia,<br/><em>nasze realizacje.</em></h2></div><p>Zdjęcia salonu i efektów pracy. Galerię można aktualizować z panelu właściciela.</p></div>
+          <div className="heading"><div><label>03 / GALERIA</label><h2>Nasza pracownia,<br/><em>nasze realizacje.</em></h2></div><p>Zdjęcia salonu i efektów pracy. Galerię można aktualizować z panelu właściciela.</p><Link className="gallery-admin-link" href="/admin">Otwórz panel właściciela ↗</Link></div>
           {gallery.length ? <div className="gallery-grid">{gallery.map((photo) => <a className="gallery-item" href={photo.url} target="_blank" rel="noreferrer" key={photo.url}><img src={photo.url} alt="Pracownia Fryzjerska Ania&Władzia" loading="lazy"/></a>)}</div> : <div className="gallery-empty"><span>✦</span><p>Galeria wkrótce</p><small>Pierwsze zdjęcia dodasz w panelu właściciela.</small></div>}
         </section>
 
