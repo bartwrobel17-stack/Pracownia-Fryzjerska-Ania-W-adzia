@@ -18,8 +18,6 @@ export default function AdminPage() {
     }
   }
 
-  useEffect(() => { load(); }, []);
-
   async function login(e) {
     e.preventDefault();
     setBusy(true); setMessage("");
